@@ -32,9 +32,15 @@ const defaultHomepage = { eyebrow: "✦ THOUGHTFULLY MADE", title: "Good things 
 const defaultStoreSettings = { homeDeliveryEnabled: true, announcementEnabled: true, announcementText: "FREE SHIPPING ON ORDERS OVER $100" };
 const defaultContact = { heading: "Come say hello.", phone: "+91 98765 43210", email: "hello@verdantgoods.com", address: "12 Garden Lane, Kolkata", hours: "Mon-Sat, 10:00 AM-7:00 PM" };
 const mongoClient = mongoUri ? new MongoClient(mongoUri) : null;
-const mailer = process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS
-  ? nodemailer.createTransport({ host: process.env.SMTP_HOST, port: Number(process.env.SMTP_PORT) || 587, secure: process.env.SMTP_SECURE === "true", auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS } })
-  : null;
+const mailer = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: 587,
+  secure: false,
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+});
 
 const send = (response, status, body) => {
   response.writeHead(status, { "Content-Type": "application/json" });
