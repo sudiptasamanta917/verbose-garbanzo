@@ -8,6 +8,7 @@ import AuthPage from "./AuthPage";
 import ProfilePage from "./ProfilePage";
 import Navbar from "./Navbar";
 import CheckoutPage from "./CheckoutPage";
+import WhatsAppButton from "./components/WhatsAppButton";
 import { useToast } from "./Toast";
 
 function Storefront() {
@@ -80,5 +81,12 @@ export default function App() {
   const productMatch = window.location.pathname.match(/^\/product\/(\d+)$/);
   if (productMatch) return localStorage.getItem("verdant_token") ? <ProductPage productId={Number(productMatch[1])} /> : <AuthPage />;
   if (window.location.pathname === "/story") return <StoryPage />;
-  return window.location.pathname === "/admin" ? <AdminPage /> : <Storefront />;
+  if (window.location.pathname === "/admin") return <AdminPage />;
+
+  return (
+    <>
+      <Storefront />
+      <WhatsAppButton />
+    </>
+  );
 }
